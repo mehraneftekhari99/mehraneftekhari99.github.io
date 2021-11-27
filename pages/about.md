@@ -7,3 +7,5 @@ Devoted my time developing the skills necessary in order to increase velocity, r
 I have a team of brilliant engineers in different IT fields, from Web and Mobile Development all the way to Machine Learning and Network Programming. We have successfully designed and launched multiple products in SaSS, remote learning and social platforms from 2016 onwards.
 
 Contact me for project inquiries: [inquiry@shahriar.ee](mailto:inquiry@shahriar.ee)
+
+*2021 - Tallinn, Estonia*
