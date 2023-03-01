@@ -2,10 +2,12 @@
 title: About
 ---
 
-Devoted my time developing the skills necessary in order to increase velocity, reliability, and quality for dozens of products with a high focus on security. Leveraging my deep experience with Cloud Infra, Docker, Kubernetes and Linux to help organizations instill DevOps according to up-to-date best practices. I have extensive experience being SRE engineer on uptime-critical services such as ArvanCloud CDN and Paxful.com, utilizing opensource software to manage, process and monitor a commercial high scale distributed workload.
+Welcome to my website! I'm a DevOps expert and cloud infrastructure specialist with over 5 years of experience helping organizations increase velocity, reliability, and security of their products. My focus is on leveraging the latest tools and up-to-date best practices to deliver exceptional results for my clients.
 
-I have a team of brilliant engineers in different IT fields, from Web and Mobile Development all the way to Machine Learning and Network Programming. We have successfully designed and launched multiple products in SaSS, remote learning and social platforms from 2016 onwards.
+I have a proven track record of success serving as SRE engineer for uptime-critical services such as ArvanCloud CDN and Paxful.com. With my expertise in Cloud Infra, Docker, Kubernetes, and Linux, I'm well-equipped to help your organization instill DevOps according to industry-leading best practices.
 
-Contact me for project inquiries: [inquiry@shahriar.ee](mailto:inquiry@shahriar.ee)
+In addition, I lead a team of brilliant engineers who specialize in Web and Mobile Development, Machine Learning, Network Programming, and more. Together, we have successfully designed and launched multiple products in SaSS, remote learning, and social platforms since 2016.
 
-*2021 - Tallinn, Estonia*
+I'm passionate about helping organizations achieve their goals through the power of technology. If you're interested in learning more about my services or have a project inquiry, please don't hesitate to contact me at [inquiry@shahriar.ee](mailto:inquiry@shahriar.ee). Let's work together to take your organization to the next level!
+
+*2023 - Tallinn, Estonia*
