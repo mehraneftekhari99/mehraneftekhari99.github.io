@@ -2,12 +2,12 @@
 title: About
 ---
 
-Welcome to my website! I'm a DevOps expert and cloud infrastructure specialist with over 5 years of experience helping organizations increase velocity, reliability, and security of their products. My focus is on leveraging the latest tools and up-to-date best practices to deliver exceptional results for my clients.
+Hey there! I'm a senior DevOps engineer and open-source enthusiast with a solid track-record in boosting product speed, reliability, and security. I'm all about using the coolest and latest tech to get top-notch results.
 
-I have a proven track record of success serving as SRE engineer for uptime-critical services such as ArvanCloud CDN and Paxful.com. With my expertise in Cloud Infra, Docker, Kubernetes, and Linux, I'm well-equipped to help your organization instill DevOps according to industry-leading best practices.
+My experience includes some pretty intense uptime-critical work, like with ArvanCloud CDN and Paxful.com. I know my way around Cloud Infra, Docker, Kubernetes, and Linux, and I'm pretty handy at guiding organizations to adopt DevOps practices that really work.
 
-In addition, I lead a team of brilliant engineers who specialize in Web and Mobile Development, Machine Learning, Network Programming, and more. Together, we have successfully designed and launched multiple products in SaSS, remote learning, and social platforms since 2016.
+I also head up a team of amazing engineers. We're into everything from Web and Mobile Development to Machine Learning and Network Programming. Since 2016, we've been creating and launching cool stuff in the SaaS world, remote learning, and social media spaces.
 
-I'm passionate about helping organizations achieve their goals through the power of technology. If you're interested in learning more about my services or have a project inquiry, please don't hesitate to contact me at [inquiry@shahriar.ee](mailto:inquiry@shahriar.ee). Let's work together to take your organization to the next level!
+I love helping groups hit their goals using tech. Got a project or just want to chat about potential collaborations? Drop me a line at inquiry@shahriar.ee. Let's make something awesome together!
 
 *2023 - Tallinn, Estonia*
