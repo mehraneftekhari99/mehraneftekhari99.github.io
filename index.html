@@ -1,55 +1,738 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shahriar</title>
-    <meta name="description" content="Shahriar's Notes">
-    <meta name="author" content="Shahriar">
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
-    <link rel="stylesheet" href="./css/animations.css">
-    <link rel="stylesheet" href="./css/poole.min.css">
-    <link rel="stylesheet" href="./css/poole.overrides.min.css">
-    <noscript>Please enable JavaScript to view this site.</noscript>
-  </head>
-  <body>
-    <!-- Main Container -->
-    <div class="container content">
-      <!-- Header -->
-      <header class="masthead">
-        <h3 class="masthead-title">
-        <a href="#" class="sitename" title="Home">
-          Shahriar
-        </a>
-        <small class="tagline">
-          's Notes
-        </small>
-        </h3>
-        <!-- Navigation -->
-        <nav class="nav">
-          <ul>
-            <li><a href="#/pages/about">About</a></li>
-            <li><a href="#/pages/links">Links</a></li>
-            <li><a href="#/posts">Posts</a></li>
-          </ul>
-        </nav>
-      </header>
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Shahriar Eftekhari — Windows 95 Style</title>
+<meta name="description" content="Personal homepage of Shahriar Eftekhari in a Windows 95 aesthetic."/>
 
-      <!-- CMS -->
-      <div id="cms"></div>
+<style>
+/* ----- Windows 95 Aesthetic (no external assets) ----- */
+/* Font stack: prefer Tahoma (bold-friendly), then Arial/Verdana; MS Sans Serif last for nostalgia */
+:root{
+  --win95-bg: #008080;         /* teal desktop */
+  --win95-gray: #C0C0C0;       /* classic gray */
+  --win95-dark: #000000;       /* dark border */
+  --win95-shadow: #808080;     /* shadow */
+  --win95-light: #FFFFFF;      /* highlight */
+  --win95-blue: #000080;       /* titlebar */
+  --win95-blue-inactive: #7f96b3; /* inactive titlebar */
+  --win95-text: #000000;
+}
 
-      <!-- Footer -->
-      <footer class="footer">
-        <small class="footer-text">
-        </small>
-      </footer>
+html, body {
+  margin:0; padding:0; height:100%;
+  background: var(--win95-bg);
+  font-family: Tahoma, Arial, Verdana, "MS Sans Serif", "Microsoft Sans Serif", sans-serif;
+  color: var(--win95-text);
+  font-size: 14px;
+  line-height: 1.35;
+  overflow: hidden;
+  image-rendering: pixelated;
+}
+
+/* Bold rendering fix for Chrome (bitmap fonts sometimes drop bold).
+   We enforce 700 and add a subtle single-direction faux-bold fallback via text-shadow. */
+b, strong, .strong {
+  font-weight: 700;
+  text-shadow: 0.25px 0 currentColor;
+}
+
+/* Desktop with a tiny dotted wallpaper */
+.desktop {
+  position: relative;
+  height: calc(100% - 32px);
+  padding: 8px;
+  box-sizing: border-box;
+  background:
+    radial-gradient(#006666 1px, transparent 1px) 0 0/6px 6px,
+    var(--win95-bg);
+}
+
+/* Desktop icons */
+.icon {
+  width:72px; text-align:center; color:#fff; text-shadow:1px 1px #000;
+  margin: 4px; cursor: default; user-select: none;
+  position: absolute;
+}
+.icon .ico {
+  width:32px; height:32px; margin: 0 auto 4px;
+  background: var(--win95-gray);
+  border: 2px solid var(--win95-dark);
+  box-shadow: inset -1px -1px 0 var(--win95-dark),
+              inset 1px 1px 0 var(--win95-light),
+              inset -2px -2px 0 var(--win95-shadow),
+              inset 2px 2px 0 var(--win95-light);
+  display:grid; place-items:center;
+}
+
+/* Window */
+.win95-window {
+  position: absolute;
+  min-width: 320px;
+  max-width: 1000px;
+  min-height: 200px;
+  background: var(--win95-gray);
+  box-shadow:
+    2px 2px 0 rgba(0,0,0,0.4); /* outer drop shadow */
+  border: 2px solid var(--win95-dark);
+}
+
+.win95-frame {
+  box-shadow: inset -1px -1px 0 var(--win95-dark),
+              inset 1px 1px 0 var(--win95-light),
+              inset -2px -2px 0 var(--win95-shadow),
+              inset 2px 2px 0 var(--win95-light);
+}
+
+.win95-titlebar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2px 4px;
+  height: 20px;
+  background: linear-gradient(to right, var(--win95-blue), #00107a);
+  color: #fff;
+  user-select: none;
+  cursor: move;
+  font-weight: bold;
+}
+
+.win95-titlebar.inactive {
+  background: linear-gradient(to right, var(--win95-blue-inactive), #9aaac4);
+  color: #eaeaea;
+}
+
+.win95-title {
+  display:flex; align-items:center; gap:6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.win95-controls {
+  display: flex; gap: 2px;
+}
+
+.win95-btn {
+  width: 16px; height: 14px;
+  background: var(--win95-gray);
+  border: 1px solid var(--win95-dark);
+  box-shadow: inset -1px -1px 0 var(--win95-dark),
+              inset 1px 1px 0 var(--win95-light),
+              inset -2px -2px 0 var(--win95-shadow),
+              inset 2px 2px 0 var(--win95-light);
+  display: grid; place-items: center;
+  font-size: 10px;
+  cursor: pointer;
+}
+
+/* Replace text symbols with tiny SVG icons */
+.win95-btn svg { width:10px; height:10px; display:block; }
+
+.win95-content {
+  padding: 8px;
+  background: var(--win95-gray);
+  overflow: auto;
+  max-height: calc(100% - 22px);
+}
+
+/* Group box */
+.group {
+  margin: 8px 0;
+  padding: 8px;
+  border: 2px solid var(--win95-dark);
+  box-shadow: inset -1px -1px 0 var(--win95-dark),
+              inset 1px 1px 0 var(--win95-light),
+              inset -2px -2px 0 var(--win95-shadow),
+              inset 2px 2px 0 var(--win95-light);
+  background: var(--win95-gray);
+}
+
+.group h3 {
+  margin: -16px 0 8px 8px;
+  padding: 0 4px;
+  display: inline-block;
+  background: var(--win95-gray);
+  font-weight: bold;
+}
+
+/* Links */
+a { color: #0000AA; text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* Scrollbar styling (WebKit browsers incl. Chrome/Edge) */
+.win95-content::-webkit-scrollbar { width: 16px; height: 16px; }
+.win95-content::-webkit-scrollbar-track {
+  background: var(--win95-gray);
+  box-shadow: inset -1px -1px 0 var(--win95-dark),
+              inset 1px 1px 0 var(--win95-light);
+}
+.win95-content::-webkit-scrollbar-thumb {
+  background: var(--win95-gray);
+  border: 2px solid var(--win95-dark);
+  box-shadow: inset -1px -1px 0 var(--win95-dark),
+              inset 1px 1px 0 var(--win95-light),
+              inset -2px -2px 0 var(--win95-shadow),
+              inset 2px 2px 0 var(--win95-light);
+}
+
+/* Taskbar */
+.taskbar {
+  position: fixed; left:0; right:0; bottom:0;
+  height: 32px; background: var(--win95-gray);
+  box-shadow: inset -1px -1px 0 var(--win95-dark),
+              inset 1px 1px 0 var(--win95-light),
+              inset -2px -2px 0 var(--win95-shadow),
+              inset 2px 2px 0 var(--win95-light);
+  border-top: 2px solid var(--win95-dark);
+  display: flex; align-items: center; gap: 6px;
+  padding: 4px;
+  z-index: 9999;
+}
+
+.start-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 2px 8px;
+  background: var(--win95-gray);
+  border: 2px solid var(--win95-dark);
+  box-shadow: inset -1px -1px 0 var(--win95-dark),
+              inset 1px 1px 0 var(--win95-light),
+              inset -2px -2px 0 var(--win95-shadow),
+              inset 2px 2px 0 var(--win95-light);
+  cursor: pointer; user-select: none;
+  font-weight: bold;
+}
+
+.task {
+  min-width: 120px;
+  padding: 2px 6px;
+  background: var(--win95-gray);
+  border: 2px solid var(--win95-dark);
+  box-shadow: inset -1px -1px 0 var(--win95-dark),
+              inset 1px 1px 0 var(--win95-light),
+              inset -2px -2px 0 var(--win95-shadow),
+              inset 2px 2px 0 var(--win95-light);
+  cursor: pointer;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+
+/* Start menu */
+#startMenu {
+  position: fixed; bottom: 32px; left: 4px; width: 220px;
+  background: var(--win95-gray);
+  border: 2px solid var(--win95-dark);
+  box-shadow: 3px 3px 0 rgba(0,0,0,0.4),
+              inset -1px -1px 0 var(--win95-dark),
+              inset 1px 1px 0 var(--win95-light),
+              inset -2px -2px 0 var(--win95-shadow),
+              inset 2px 2px 0 var(--win95-light);
+  display:none;
+  z-index: 10000;
+}
+.menu-item{
+  padding:6px 8px; display:flex; align-items:center; gap:8px; cursor:pointer;
+}
+.menu-item:hover{ background:#000080; color:#fff; }
+
+/* Resize grip */
+.resize-grip {
+  position:absolute; right:0; bottom:0;
+  width: 16px; height: 16px;
+  background: repeating-linear-gradient(135deg, transparent 0 4px, rgba(0,0,0,0.25) 4px 8px);
+  cursor: nwse-resize;
+}
+/* Responsive tweaks */
+@media (max-width: 720px) {
+  .win95-window { min-width: 92vw; left: 4vw !important; right: 4vw !important; }
+}
+</style>
+</head>
+
+<body>
+  <div class="desktop" id="desktop">
+    <!-- Desktop icons -->
+    <div class="icon" style="top:12px; left:12px;" data-open="window-about">
+      <div class="ico"><svg width="16" height="16" viewBox="0 0 16 16"><rect x="2" y="3" width="12" height="10" fill="#000"></rect><rect x="3" y="4" width="10" height="8" fill="#C0C0C0"></rect></svg></div>
+      <div>About</div>
+    </div>
+    <div class="icon" style="top:100px; left:12px;" data-open="window-resume">
+      <div class="ico"><svg width="16" height="16" viewBox="0 0 16 16"><rect x="2" y="2" width="12" height="12" fill="#000"></rect><rect x="3" y="3" width="10" height="10" fill="#C0C0C0"></rect><line x1="5" y1="6" x2="11" y2="6" stroke="#000"/><line x1="5" y1="8" x2="11" y2="8" stroke="#000"/></svg></div>
+      <div>Resume</div>
+    </div>
+    <div class="icon" style="top:188px; left:12px;" data-open="window-mines">
+      <div class="ico"><svg width="16" height="16" viewBox="0 0 16 16"><circle cx="8" cy="8" r="4" fill="#000"/><rect x="7" y="1" width="2" height="4" fill="#000"/></svg></div>
+      <div>Mines</div>
     </div>
 
-    <!-- ES5 Polyfills -->
-    <script src="//cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.12/es5-shim.min.js"></script>
-    <!-- CMS.js -->
-    <script src="./js/cms.js"></script>
-    <!-- Config -->
-    <script src="./js/config.js"></script>
-  </body>
+    <!-- Window: Personal Info (website-like) -->
+    <section class="win95-window win95-frame" id="window-about" style="top: 40px; left: 120px; width: 520px; height: 420px; z-index: 2;">
+      <header class="win95-titlebar" data-window="window-about">
+        <div class="win95-title">
+          <svg width="14" height="14" viewBox="0 0 16 16"><rect x="1" y="4" width="14" height="10" fill="#C0C0C0" stroke="#000"/></svg>
+          <span>About — shahriar.ee</span>
+        </div>
+        <div class="win95-controls">
+          <div class="win95-btn" data-action="minimize" title="Minimize"><svg viewBox="0 0 10 10"><rect x="1" y="7" width="8" height="1" fill="#000"/></svg></div>
+          <div class="win95-btn" data-action="maximize" title="Maximize"><svg viewBox="0 0 10 10"><rect x="2" y="2" width="6" height="6" fill="none" stroke="#000" stroke-width="1"/></svg></div>
+          <div class="win95-btn" data-action="close" title="Close"><svg viewBox="0 0 10 10"><line x1="2" y1="2" x2="8" y2="8" stroke="#000"/><line x1="8" y1="2" x2="2" y2="8" stroke="#000"/></svg></div>
+        </div>
+      </header>
+      <div class="win95-content">
+        <div class="group">
+          <h3>Profile</h3>
+          <p><strong>Shahriar Eftekhari</strong> — Senior DevOps / Site Reliability Engineer in Tallinn, Estonia.</p>
+          <p>Focused on increasing velocity, reliability, and quality across cloud-native systems. Deep experience with Linux, Kubernetes, Networking, and modern DevOps tooling.</p>
+        </div>
+        <div class="group">
+          <h3>Contact & Links</h3>
+          <ul>
+            <li>Email: <a href="mailto:me@shahriar.ee">me@shahriar.ee</a></li>
+            <li>LinkedIn: <a href="https://www.linkedin.com/in/shahriar-e/" target="_blank" rel="noopener">linkedin.com/in/shahriar-e</a></li>
+            <li>GitHub: <a href="https://github.com/mehraneftekhari99" target="_blank" rel="noopener">github.com/mehraneftekhari99</a></li>
+            <li>Location: Tallinn, Estonia</li>
+          </ul>
+        </div>
+        <div class="group">
+          <h3>Current</h3>
+          <p>Site Reliability Engineer @ Bolt (Apr 2024 — present).</p>
+          <p>Senior Infrastructure Engineer @ Paxful/Noones (Mar 2021 — present, remote).</p>
+        </div>
+        <div class="group">
+          <h3>Tech Interests</h3>
+          <p>Cloud infra, high-scale distributed systems, observability, security, cost efficiency, and a soft spot for open source.</p>
+        </div>
+      </div>
+      <div class="resize-grip" data-resize="window-about"></div>
+    </section>
+
+    <!-- Window: Resume -->
+    <section class="win95-window win95-frame" id="window-resume" style="top: 80px; left: 680px; width: 640px; height: 520px; z-index: 3;">
+      <header class="win95-titlebar" data-window="window-resume">
+        <div class="win95-title">
+          <svg width="14" height="14" viewBox="0 0 16 16"><rect x="2" y="2" width="12" height="12" fill="#C0C0C0" stroke="#000"/></svg>
+          <span>Resume — Shahriar Eftekhari</span>
+        </div>
+        <div class="win95-controls">
+          <div class="win95-btn" data-action="minimize" title="Minimize"><svg viewBox="0 0 10 10"><rect x="1" y="7" width="8" height="1" fill="#000"/></svg></div>
+          <div class="win95-btn" data-action="maximize" title="Maximize"><svg viewBox="0 0 10 10"><rect x="2" y="2" width="6" height="6" fill="none" stroke="#000" stroke-width="1"/></svg></div>
+          <div class="win95-btn" data-action="close" title="Close"><svg viewBox="0 0 10 10"><line x1="2" y1="2" x2="8" y2="8" stroke="#000"/><line x1="8" y1="2" x2="2" y2="8" stroke="#000"/></svg></div>
+        </div>
+      </header>
+      <div class="win95-content">
+        <div class="group">
+          <h3>Summary</h3>
+          <p>Devoted to increasing velocity, reliability, and quality for IT products. Extensive SRE experience on uptime-critical services (Paxful.com, ArvanCloud CDN), managing high-scale distributed workloads and diving into low-level system engineering when necessary.</p>
+        </div>
+
+        <div class="group">
+          <h3>Experience</h3>
+          <ul>
+            <li><strong>Site Reliability Engineer — Bolt Technology OÜ</strong> (04/2024–Present, Tallinn)
+              <ul>
+                <li>Maintain data services and stateful workloads; on-call rotations.</li>
+              </ul>
+            </li>
+            <li><strong>Senior Infrastructure Engineer — Paxful/Noones</strong> (03/2021–Present, Tallinn | New York, Remote)
+              <ul>
+                <li>Migrated services to Helm, Vault, ArgoCD, Terraform; weekly on-call for a high-load marketplace with millions of users; built services for Data/Security; helped cut infra costs by 50% across teams.</li>
+              </ul>
+            </li>
+            <li><strong>Site Reliability Engineer — AbreArvan (ArvanCloud)</strong> (06/2019–01/2021, Tehran)
+              <ul>
+                <li>Troubleshot/operated CDN infra with tens of millions of users and hundreds of PoPs; designed DDoS detection/mitigation; self-hosted Kubernetes and migrated core services.</li>
+              </ul>
+            </li>
+            <li><strong>Lead DevOps Engineer — Innovation Village</strong> (06/2018–06/2019, Isfahan)
+              <ul>
+                <li>Architected and led embedded Linux software for LTE modem/router (OpenWRT); designed CI/CD for rapid embedded dev; developed AAA for network access integrated with Linux networking.</li>
+              </ul>
+            </li>
+            <li><strong>Site Reliability Engineer — CPOL</strong> (03/2016–03/2017, Isfahan)
+              <ul>
+                <li>Built a Raspberry Pi–based distributed computing lab product; implemented infra across Windows, Linux, Mikrotik/Cisco; helped create IPTV streaming appliance with open-source stack.</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+
+        <div class="group">
+          <h3>Skills</h3>
+          <p><strong>Platforms/Cloud:</strong> Linux, Windows Server, AWS</p>
+          <p><strong>Networking:</strong> Cisco R&S</p>
+          <p><strong>Data/Streaming:</strong> Elastic Stack, Redis, MariaDB, PostgreSQL, ClickHouse, Apache Kafka, Apache Flink</p>
+          <p><strong>DevOps:</strong> Kubernetes, CI/CD, Helm, Terraform, ArgoCD, Vault, SaltStack, Automation, Security, Incident Response</p>
+          <p><strong>Programming:</strong> Python, Lua, SQL</p>
+          <p><strong>Languages:</strong> FA/EN (Excellent), RU/DE (Basic)</p>
+        </div>
+
+        <div class="group">
+          <h3>Achievements</h3>
+          <ul>
+            <li>WorldSkills Iran (Networks & Systems Administration) — 1st place (2016)</li>
+            <li>Khwarizmi International Awards — Bronze (2016)</li>
+            <li>IUT APA CTF — 1st (2018)</li>
+            <li>APA CyberSecurity Startup Contest — 1st (2018)</li>
+            <li>SharifCTF — 2nd (2019)</li>
+          </ul>
+        </div>
+
+        <div class="group">
+          <h3>Projects</h3>
+          <ul>
+            <li>MinTweet / Pantheon / … (2023–Present): experiments with LLM capabilities in discussion/social media contexts.</li>
+            <li>Intelligent Distributed Computing (2015–2016): runtime patching & method offloading to distribute computation; Khwarizmi award.</li>
+            <li>rayanfam.com Blog (2017–2021): deep-dive systems/engineering posts and how-tos.</li>
+          </ul>
+        </div>
+
+        <div class="group">
+          <h3>Education</h3>
+          <ul>
+            <li>B.S. Computer Science & Mathematics (unfinished), University of Isfahan (2017–2019)</li>
+            <li>B.A. Liberal Arts in Social Sciences, Tallinn University (2023–Present)</li>
+          </ul>
+        </div>
+      </div>
+      <div class="resize-grip" data-resize="window-resume"></div>
+    </section>
+
+    <!-- Window: Minesweeper (hidden by default) -->
+    <section class="win95-window win95-frame" id="window-mines" style="top: 160px; left: 420px; width: 360px; height: 460px; display:none;">
+      <header class="win95-titlebar" data-window="window-mines">
+        <div class="win95-title">
+          <svg width="14" height="14" viewBox="0 0 16 16"><circle cx="8" cy="8" r="5" fill="#C0C0C0" stroke="#000"/></svg>
+          <span>Minesweeper</span>
+        </div>
+        <div class="win95-controls">
+          <div class="win95-btn" data-action="minimize" title="Minimize"><svg viewBox="0 0 10 10"><rect x="1" y="7" width="8" height="1" fill="#000"/></svg></div>
+          <div class="win95-btn" data-action="maximize" title="Maximize"><svg viewBox="0 0 10 10"><rect x="2" y="2" width="6" height="6" fill="none" stroke="#000" stroke-width="1"/></svg></div>
+          <div class="win95-btn" data-action="close" title="Close"><svg viewBox="0 0 10 10"><line x1="2" y1="2" x2="8" y2="8" stroke="#000"/><line x1="8" y1="2" x2="2" y2="8" stroke="#000"/></svg></div>
+        </div>
+      </header>
+      <div class="win95-content" style="display:flex; flex-direction:column;">
+        <div style="display:flex; gap:8px; align-items:center; margin-bottom:8px;">
+          <button id="mines-reset" class="start-btn">New</button>
+          <div>Time: <span id="mines-time">0</span></div>
+          <div style="margin-left:auto;">Mines: <span id="mines-left">0</span></div>
+        </div>
+        <div id="mines-board" class="win95-frame" style="padding:4px; background:#9e9e9e; display:grid; grid-template-columns: repeat(9, 1fr); gap:2px;"></div>
+        <small style="margin-top:6px;">Left click: reveal — Right click: flag</small>
+      </div>
+      <div class="resize-grip" data-resize="window-mines"></div>
+    </section>
+  </div>
+
+  <!-- Taskbar -->
+  <footer class="taskbar">
+    <div class="start-btn" id="startBtn">
+      <svg width="14" height="14" viewBox="0 0 16 16"><rect x="2" y="2" width="12" height="12" fill="#000"/></svg>
+      Start
+    </div>
+    <div class="task" data-target="window-about">About — shahriar.ee</div>
+    <div class="task" data-target="window-resume">Resume — Shahriar Eftekhari</div>
+    <div class="task" data-target="window-mines">Minesweeper</div>
+    <div style="margin-left:auto;padding-right:8px;" id="clock"></div>
+  </footer>
+
+  <!-- Start menu -->
+  <div id="startMenu" class="win95-frame">
+    <div class="menu-item" data-open="window-about">📁 About</div>
+    <div class="menu-item" data-open="window-resume">📄 Resume</div>
+    <div class="menu-item" data-open="window-mines">💣 Minesweeper</div>
+    <div class="menu-item" onclick="window.open('https://github.com/mehraneftekhari99','_blank')">🌐 GitHub</div>
+    <div class="menu-item" onclick="alert('It is now safe to turn off your computer.');">⏻ Shut Down…</div>
+  </div>
+
+<script>
+// ----- Window manager: drag, focus, minimize/maximize/close, taskbar, start menu, resize -----
+(function(){
+  const z = { next: 5 };
+  const taskbarHeight = 32;
+
+  function bringToFront(win) {
+    document.querySelectorAll('.win95-titlebar').forEach(tb => tb.classList.add('inactive'));
+    win.querySelector('.win95-titlebar').classList.remove('inactive');
+    win.style.zIndex = z.next++;
+  }
+
+  function makeDraggable(win) {
+    const titlebar = win.querySelector('.win95-titlebar');
+    let isDown = false, offset = {x:0, y:0};
+
+    titlebar.addEventListener('mousedown', (e) => {
+      if (e.target.closest('.win95-controls')) return;
+      isDown = true;
+      bringToFront(win);
+      const rect = win.getBoundingClientRect();
+      offset.x = e.clientX - rect.left;
+      offset.y = e.clientY - rect.top;
+      document.body.style.userSelect = 'none';
+    });
+
+    document.addEventListener('mousemove', (e) => {
+      if(!isDown) return;
+      const rect = win.getBoundingClientRect();
+      const w = rect.width; const h = rect.height;
+      const x = Math.max(0, Math.min(window.innerWidth - w, e.clientX - offset.x));
+      const y = Math.max(0, Math.min(window.innerHeight - taskbarHeight - h, e.clientY - offset.y));
+      win.style.left = x + 'px';
+      win.style.top = y + 'px';
+    });
+
+    document.addEventListener('mouseup', () => {
+      isDown = false;
+      document.body.style.userSelect = '';
+    });
+
+    win.addEventListener('mousedown', () => bringToFront(win));
+  }
+
+  function minimize(win) {
+    win.dataset.prevDisplay = win.style.display || '';
+    win.style.display = 'none';
+  }
+
+  function maximize(win) {
+    if (win.dataset.maximized === 'true') {
+      win.style.left = win.dataset.prevLeft;
+      win.style.top = win.dataset.prevTop;
+      win.style.width = win.dataset.prevWidth;
+      win.style.height = win.dataset.prevHeight;
+      win.dataset.maximized = 'false';
+    } else {
+      const rect = win.getBoundingClientRect();
+      win.dataset.prevLeft = win.style.left || rect.left + 'px';
+      win.dataset.prevTop = win.style.top || rect.top + 'px';
+      win.dataset.prevWidth = win.style.width || rect.width + 'px';
+      win.dataset.prevHeight = win.style.height || rect.height + 'px';
+      win.style.left = '0px';
+      win.style.top = '0px';
+      win.style.width = window.innerWidth + 'px';
+      win.style.height = (window.innerHeight - taskbarHeight) + 'px';
+      win.dataset.maximized = 'true';
+      bringToFront(win);
+    }
+  }
+
+  function closeWindow(win) {
+    win.style.display = 'none';
+  }
+
+  function bindControls(win) {
+    win.querySelectorAll('.win95-btn').forEach(btn => {
+      const action = btn.dataset.action;
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (action === 'minimize') minimize(win);
+        if (action === 'maximize') maximize(win);
+        if (action === 'close') closeWindow(win);
+      });
+    });
+  }
+
+  function bindTaskbar() {
+    document.querySelectorAll('.task').forEach(task => {
+      task.addEventListener('click', () => {
+        const id = task.dataset.target;
+        const win = document.getElementById(id);
+        win.style.display = '';
+        bringToFront(win);
+      });
+    });
+  }
+
+  // Start menu toggle
+  const startBtn = document.getElementById('startBtn');
+  const startMenu = document.getElementById('startMenu');
+  startBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    startMenu.style.display = startMenu.style.display === 'none' || startMenu.style.display === '' ? 'block' : 'none';
+  });
+  document.addEventListener('click', () => startMenu.style.display = 'none');
+  startMenu.addEventListener('click', (e) => {
+    const targetId = e.target.closest('.menu-item')?.dataset.open;
+    if (targetId) {
+      const win = document.getElementById(targetId);
+      win.style.display = '';
+      bringToFront(win);
+    }
+  });
+
+  // Desktop icons open windows
+  document.querySelectorAll('.icon').forEach(ic => {
+    ic.addEventListener('dblclick', () => {
+      const id = ic.dataset.open;
+      const win = document.getElementById(id);
+      win.style.display = '';
+      bringToFront(win);
+    });
+  });
+
+  // Resize
+  function makeResizable(win){
+    const grip = win.querySelector('.resize-grip');
+    if (!grip) return;
+    let resizing = false, start = {x:0,y:0}, startRect=null;
+    grip.addEventListener('mousedown', (e)=>{
+      resizing = true; start.x = e.clientX; start.y = e.clientY;
+      startRect = win.getBoundingClientRect();
+      e.preventDefault(); e.stopPropagation();
+    });
+    document.addEventListener('mousemove', (e)=>{
+      if(!resizing) return;
+      const dx = e.clientX - start.x;
+      const dy = e.clientY - start.y;
+      win.style.width = Math.max(320, startRect.width + dx) + 'px';
+      win.style.height = Math.max(200, startRect.height + dy) + 'px';
+    });
+    document.addEventListener('mouseup', ()=> resizing=false);
+  }
+
+  // Clock (AM/PM)
+  function updateClock() {
+    const el = document.getElementById('clock');
+    const now = new Date();
+    let h = now.getHours();
+    const m = now.getMinutes().toString().padStart(2,'0');
+    const ampm = h >= 12 ? 'PM' : 'AM';
+    h = h % 12; if (h === 0) h = 12;
+    el.textContent = h + ":" + m + " " + ampm;
+  }
+  setInterval(updateClock, 1000);
+  updateClock();
+
+  // Init windows
+  document.querySelectorAll('.win95-window').forEach(win => {
+    makeDraggable(win);
+    makeResizable(win);
+    bindControls(win);
+  });
+  bindTaskbar();
+})();
+
+// ----- Minesweeper (simple implementation) -----
+(function(){
+  const boardEl = document.getElementById('mines-board');
+  const timeEl = document.getElementById('mines-time');
+  const leftEl = document.getElementById('mines-left');
+  const resetBtn = document.getElementById('mines-reset');
+
+  const W = 9, H = 9, MINES = 10;
+  let board = [], revealed = [], flagged = [], timer=null, seconds=0, minesLeft=MINES, alive=true, started=false;
+
+  function init(){
+    board = Array.from({length:H}, ()=>Array(W).fill(0));
+    revealed = Array.from({length:H}, ()=>Array(W).fill(false));
+    flagged  = Array.from({length:H}, ()=>Array(W).fill(false));
+    seconds = 0; minesLeft = MINES; alive=true; started=false;
+    timeEl.textContent = "0";
+    leftEl.textContent = minesLeft;
+    boardEl.style.gridTemplateColumns = `repeat(${W}, 1fr)`;
+    boardEl.innerHTML = "";
+    // place mines
+    let placed=0;
+    while(placed<MINES){
+      const x = Math.floor(Math.random()*W);
+      const y = Math.floor(Math.random()*H);
+      if (board[y][x] === -1) continue;
+      board[y][x] = -1; placed++;
+    }
+    // numbers
+    for (let y=0; y<H; y++){
+      for (let x=0; x<W; x++){
+        if (board[y][x] === -1) continue;
+        let c=0;
+        for (let dy=-1; dy<=1; dy++)
+          for (let dx=-1; dx<=1; dx++){
+            if (dx===0 && dy===0) continue;
+            const nx=x+dx, ny=y+dy;
+            if (nx>=0 && nx<W && ny>=0 && ny<H && board[ny][nx]===-1) c++;
+          }
+        board[y][x] = c;
+      }
+    }
+    // render
+    for (let y=0; y<H; y++){
+      for (let x=0; x<W; x++){
+        const cell = document.createElement('div');
+        cell.dataset.x = x; cell.dataset.y = y;
+        cell.style.width = "28px"; cell.style.height = "28px";
+        cell.style.display = "grid"; cell.style.placeItems = "center";
+        cell.style.cursor = "pointer";
+        cell.className = "win95-frame";
+        cell.style.background = "#C0C0C0";
+        cell.oncontextmenu = (e)=>{ e.preventDefault(); flag(x,y,cell); };
+        cell.addEventListener('click', ()=> reveal(x,y));
+        boardEl.appendChild(cell);
+      }
+    }
+    if (timer) clearInterval(timer);
+    timer = setInterval(()=>{
+      if (alive && started) { seconds++; timeEl.textContent = seconds; }
+    },1000);
+  }
+
+  function flag(x,y,cell) {
+    if (!alive) return;
+    if (revealed[y][x]) return;
+    flagged[y][x] = !flagged[y][x];
+    cell = cell || getCell(x,y);
+    if (flagged[y][x]) { cell.textContent = "⚑"; minesLeft--; }
+    else { cell.textContent = ""; minesLeft++; }
+    leftEl.textContent = minesLeft;
+  }
+
+  function reveal(x,y) {
+    if (!alive) return;
+    if (!started){ started=true; }
+    if (flagged[y][x] || revealed[y][x]) return;
+    const val = board[y][x];
+    const cell = getCell(x,y);
+    revealed[y][x] = true;
+    cell.style.background = "#E0E0E0";
+    cell.style.boxShadow = "inset 1px 1px 0 #808080, inset -1px -1px 0 #FFFFFF";
+    if (val === -1) {
+      cell.textContent = "💣"; alive=false; revealAll();
+      setTimeout(()=>alert("Boom!"),50);
+      return;
+    }
+    if (val > 0) {
+      cell.textContent = String(val);
+    } else {
+      // flood fill
+      for (let dy=-1; dy<=1; dy++)
+        for (let dx=-1; dx<=1; dx++){
+          if (dx===0 && dy===0) continue;
+          const nx=x+dx, ny=y+dy;
+          if (nx>=0 && nx<W && ny>=0 && ny<H && !revealed[ny][nx]) reveal(nx,ny);
+        }
+    }
+    checkWin();
+  }
+
+  function checkWin(){
+    let safe=0;
+    for (let y=0;y<H;y++) for (let x=0;x<W;x++) if (board[y][x]!==-1) safe++;
+    let shown=0;
+    for (let y=0;y<H;y++) for (let x=0;x<W;x++) if (revealed[y][x]) shown++;
+    if (shown===safe){ alive=false; setTimeout(()=>alert("You win!"),50); }
+  }
+
+  function revealAll(){
+    for (let y=0;y<H;y++) for (let x=0;x<W;x++){
+      const cell=getCell(x,y);
+      if (board[y][x]===-1) cell.textContent="💣";
+    }
+  }
+
+  function getCell(x,y){
+    return boardEl.querySelector(`div[data-x="${x}"][data-y="${y}"]`);
+  }
+
+  resetBtn.addEventListener('click', init);
+  init();
+})();
+</script>
+</body>
 </html>
