@@ -2,26 +2,25 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
 <title>Shahriar Eftekhari — Windows 95 Style</title>
 <meta name="description" content="Personal homepage of Shahriar Eftekhari in a Windows 95 aesthetic."/>
 
 <style>
-/* ----- Windows 95 Aesthetic (no external assets) ----- */
-/* Font stack: prefer Tahoma (bold-friendly), then Arial/Verdana; MS Sans Serif last for nostalgia */
 :root{
-  --win95-bg: #008080;         /* teal desktop */
-  --win95-gray: #C0C0C0;       /* classic gray */
-  --win95-dark: #000000;       /* dark border */
-  --win95-shadow: #808080;     /* shadow */
-  --win95-light: #FFFFFF;      /* highlight */
-  --win95-blue: #000080;       /* titlebar */
-  --win95-blue-inactive: #7f96b3; /* inactive titlebar */
+  --vh: 1vh; /* will be set by JS for iOS */
+  --win95-bg: #008080;
+  --win95-gray: #C0C0C0;
+  --win95-dark: #000000;
+  --win95-shadow: #808080;
+  --win95-light: #FFFFFF;
+  --win95-blue: #000080;
+  --win95-blue-inactive: #7f96b3;
   --win95-text: #000000;
 }
 
 html, body {
-  margin:0; padding:0; height:100%;
+  margin:0; padding:0;
   background: var(--win95-bg);
   font-family: Tahoma, Arial, Verdana, "MS Sans Serif", "Microsoft Sans Serif", sans-serif;
   color: var(--win95-text);
@@ -31,19 +30,15 @@ html, body {
   image-rendering: pixelated;
 }
 
-/* Bold rendering fix for Chrome (bitmap fonts sometimes drop bold).
-   We enforce 700 and add a subtle single-direction faux-bold fallback via text-shadow. */
-b, strong, .strong {
-  font-weight: 700;
-  text-shadow: 0.25px 0 currentColor;
-}
+b, strong, .strong { font-weight: 700; text-shadow: 0.25px 0 currentColor; }
 
-/* Desktop with a tiny dotted wallpaper */
+/* Desktop */
 .desktop {
   position: relative;
-  height: calc(100% - 32px);
+  height: calc((var(--vh, 1vh) * 100) - 32px);
   padding: 8px;
   box-sizing: border-box;
+  overflow: hidden;
   background:
     radial-gradient(#006666 1px, transparent 1px) 0 0/6px 6px,
     var(--win95-bg);
@@ -73,8 +68,7 @@ b, strong, .strong {
   max-width: 1000px;
   min-height: 200px;
   background: var(--win95-gray);
-  box-shadow:
-    2px 2px 0 rgba(0,0,0,0.4); /* outer drop shadow */
+  box-shadow: 2px 2px 0 rgba(0,0,0,0.4);
   border: 2px solid var(--win95-dark);
 }
 
@@ -98,22 +92,11 @@ b, strong, .strong {
   font-weight: bold;
 }
 
-.win95-titlebar.inactive {
-  background: linear-gradient(to right, var(--win95-blue-inactive), #9aaac4);
-  color: #eaeaea;
-}
+.win95-titlebar.inactive { background: linear-gradient(to right, var(--win95-blue-inactive), #9aaac4); color: #eaeaea; }
 
-.win95-title {
-  display:flex; align-items:center; gap:6px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
+.win95-title { display:flex; align-items:center; gap:6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-.win95-controls {
-  display: flex; gap: 2px;
-}
-
+.win95-controls { display: flex; gap: 2px; }
 .win95-btn {
   width: 16px; height: 14px;
   background: var(--win95-gray);
@@ -126,8 +109,6 @@ b, strong, .strong {
   font-size: 10px;
   cursor: pointer;
 }
-
-/* Replace text symbols with tiny SVG icons */
 .win95-btn svg { width:10px; height:10px; display:block; }
 
 .win95-content {
@@ -139,8 +120,7 @@ b, strong, .strong {
 
 /* Group box */
 .group {
-  margin: 8px 0;
-  padding: 8px;
+  margin: 8px 0; padding: 8px;
   border: 2px solid var(--win95-dark);
   box-shadow: inset -1px -1px 0 var(--win95-dark),
               inset 1px 1px 0 var(--win95-light),
@@ -148,20 +128,13 @@ b, strong, .strong {
               inset 2px 2px 0 var(--win95-light);
   background: var(--win95-gray);
 }
-
-.group h3 {
-  margin: -16px 0 8px 8px;
-  padding: 0 4px;
-  display: inline-block;
-  background: var(--win95-gray);
-  font-weight: bold;
-}
+.group h3 { margin: -16px 0 8px 8px; padding: 0 4px; display: inline-block; background: var(--win95-gray); font-weight: bold; }
 
 /* Links */
 a { color: #0000AA; text-decoration: none; }
 a:hover { text-decoration: underline; }
 
-/* Scrollbar styling (WebKit browsers incl. Chrome/Edge) */
+/* Scrollbar (WebKit) */
 .win95-content::-webkit-scrollbar { width: 16px; height: 16px; }
 .win95-content::-webkit-scrollbar-track {
   background: var(--win95-gray);
@@ -179,18 +152,16 @@ a:hover { text-decoration: underline; }
 
 /* Taskbar */
 .taskbar {
-  position: fixed; left:0; right:0; bottom:0;
-  height: 32px; background: var(--win95-gray);
+  position: fixed; left:0; right:0; bottom:0; height: 32px;
+  background: var(--win95-gray);
   box-shadow: inset -1px -1px 0 var(--win95-dark),
               inset 1px 1px 0 var(--win95-light),
               inset -2px -2px 0 var(--win95-shadow),
               inset 2px 2px 0 var(--win95-light);
   border-top: 2px solid var(--win95-dark);
-  display: flex; align-items: center; gap: 6px;
-  padding: 4px;
+  display: flex; align-items: center; gap: 6px; padding: 4px;
   z-index: 9999;
 }
-
 .start-btn {
   display: inline-flex; align-items: center; gap: 6px;
   padding: 2px 8px;
@@ -200,26 +171,21 @@ a:hover { text-decoration: underline; }
               inset 1px 1px 0 var(--win95-light),
               inset -2px -2px 0 var(--win95-shadow),
               inset 2px 2px 0 var(--win95-light);
-  cursor: pointer; user-select: none;
-  font-weight: bold;
+  cursor: pointer; user-select: none; font-weight: bold;
 }
-
 .task {
-  min-width: 120px;
-  padding: 2px 6px;
-  background: var(--win95-gray);
+  min-width: 120px; padding: 2px 6px; background: var(--win95-gray);
   border: 2px solid var(--win95-dark);
   box-shadow: inset -1px -1px 0 var(--win95-dark),
               inset 1px 1px 0 var(--win95-light),
               inset -2px -2px 0 var(--win95-shadow),
               inset 2px 2px 0 var(--win95-light);
-  cursor: pointer;
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  cursor: pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 
 /* Start menu */
 #startMenu {
-  position: fixed; bottom: 32px; left: 4px; width: 220px;
+  position: fixed; bottom: 32px; left: 4px; width: 220px; display:none; z-index: 10000;
   background: var(--win95-gray);
   border: 2px solid var(--win95-dark);
   box-shadow: 3px 3px 0 rgba(0,0,0,0.4),
@@ -227,24 +193,28 @@ a:hover { text-decoration: underline; }
               inset 1px 1px 0 var(--win95-light),
               inset -2px -2px 0 var(--win95-shadow),
               inset 2px 2px 0 var(--win95-light);
-  display:none;
-  z-index: 10000;
 }
-.menu-item{
-  padding:6px 8px; display:flex; align-items:center; gap:8px; cursor:pointer;
-}
+.menu-item{ padding:6px 8px; display:flex; align-items:center; gap:8px; cursor:pointer; }
 .menu-item:hover{ background:#000080; color:#fff; }
 
-/* Resize grip */
+/* Resize grip (fixed placement) */
 .resize-grip {
-  position:absolute; right:0; bottom:0;
-  width: 16px; height: 16px;
+  position:absolute; right:2px; bottom:2px; width: 14px; height: 14px;
   background: repeating-linear-gradient(135deg, transparent 0 4px, rgba(0,0,0,0.25) 4px 8px);
   cursor: nwse-resize;
 }
-/* Responsive tweaks */
-@media (max-width: 720px) {
-  .win95-window { min-width: 92vw; left: 4vw !important; right: 4vw !important; }
+
+/* ---- Mobile responsiveness ---- */
+@media (max-width: 768px) {
+  html, body { font-size: 15px; }
+  .desktop { height: calc((var(--vh, 1vh) * 100) - 32px); overflow: auto; }
+  .icon { position: static; display:inline-block; margin-right:12px; }
+  .win95-window {
+    left: 0 !important; top: 0 !important;
+    width: 100vw !important;
+    height: calc((var(--vh, 1vh) * 100) - 32px) !important;
+  }
+  .resize-grip { display:none; } /* hide grips on mobile */
 }
 </style>
 </head>
@@ -253,19 +223,19 @@ a:hover { text-decoration: underline; }
   <div class="desktop" id="desktop">
     <!-- Desktop icons -->
     <div class="icon" style="top:12px; left:12px;" data-open="window-about">
-      <div class="ico"><svg width="16" height="16" viewBox="0 0 16 16"><rect x="2" y="3" width="12" height="10" fill="#000"></rect><rect x="3" y="4" width="10" height="8" fill="#C0C0C0"></rect></svg></div>
+      <div class="ico"><svg width="16" height="16" viewBox="0 0 16 16"><rect x="1" y="4" width="14" height="10" fill="#C0C0C0" stroke="#000"/></svg></div>
       <div>About</div>
     </div>
     <div class="icon" style="top:100px; left:12px;" data-open="window-resume">
-      <div class="ico"><svg width="16" height="16" viewBox="0 0 16 16"><rect x="2" y="2" width="12" height="12" fill="#000"></rect><rect x="3" y="3" width="10" height="10" fill="#C0C0C0"></rect><line x1="5" y1="6" x2="11" y2="6" stroke="#000"/><line x1="5" y1="8" x2="11" y2="8" stroke="#000"/></svg></div>
+      <div class="ico"><svg width="16" height="16" viewBox="0 0 16 16"><rect x="2" y="2" width="12" height="12" fill="#C0C0C0" stroke="#000"/></svg></div>
       <div>Resume</div>
     </div>
     <div class="icon" style="top:188px; left:12px;" data-open="window-mines">
-      <div class="ico"><svg width="16" height="16" viewBox="0 0 16 16"><circle cx="8" cy="8" r="4" fill="#000"/><rect x="7" y="1" width="2" height="4" fill="#000"/></svg></div>
+      <div class="ico"><svg width="16" height="16" viewBox="0 0 16 16"><circle cx="8" cy="8" r="5" fill="#C0C0C0" stroke="#000"/></svg></div>
       <div>Mines</div>
     </div>
 
-    <!-- Window: Personal Info (website-like) -->
+    <!-- About Window -->
     <section class="win95-window win95-frame" id="window-about" style="top: 40px; left: 120px; width: 520px; height: 420px; z-index: 2;">
       <header class="win95-titlebar" data-window="window-about">
         <div class="win95-title">
@@ -303,10 +273,10 @@ a:hover { text-decoration: underline; }
           <p>Cloud infra, high-scale distributed systems, observability, security, cost efficiency, and a soft spot for open source.</p>
         </div>
       </div>
-      <div class="resize-grip" data-resize="window-about"></div>
+      <div class="resize-grip" data-resize="window-about" aria-hidden="true"></div>
     </section>
 
-    <!-- Window: Resume -->
+    <!-- Resume Window -->
     <section class="win95-window win95-frame" id="window-resume" style="top: 80px; left: 680px; width: 640px; height: 520px; z-index: 3;">
       <header class="win95-titlebar" data-window="window-resume">
         <div class="win95-title">
@@ -329,29 +299,19 @@ a:hover { text-decoration: underline; }
           <h3>Experience</h3>
           <ul>
             <li><strong>Site Reliability Engineer — Bolt Technology OÜ</strong> (04/2024–Present, Tallinn)
-              <ul>
-                <li>Maintain data services and stateful workloads; on-call rotations.</li>
-              </ul>
+              <ul><li>Maintain data services and stateful workloads; on-call rotations.</li></ul>
             </li>
             <li><strong>Senior Infrastructure Engineer — Paxful/Noones</strong> (03/2021–Present, Tallinn | New York, Remote)
-              <ul>
-                <li>Migrated services to Helm, Vault, ArgoCD, Terraform; weekly on-call for a high-load marketplace with millions of users; built services for Data/Security; helped cut infra costs by 50% across teams.</li>
-              </ul>
+              <ul><li>Migrated services to Helm, Vault, ArgoCD, Terraform; weekly on-call; built services for Data/Security; helped cut infra costs by 50% across teams.</li></ul>
             </li>
             <li><strong>Site Reliability Engineer — AbreArvan (ArvanCloud)</strong> (06/2019–01/2021, Tehran)
-              <ul>
-                <li>Troubleshot/operated CDN infra with tens of millions of users and hundreds of PoPs; designed DDoS detection/mitigation; self-hosted Kubernetes and migrated core services.</li>
-              </ul>
+              <ul><li>Troubleshot/operated CDN infra; DDoS detection/mitigation; self-hosted Kubernetes migration.</li></ul>
             </li>
             <li><strong>Lead DevOps Engineer — Innovation Village</strong> (06/2018–06/2019, Isfahan)
-              <ul>
-                <li>Architected and led embedded Linux software for LTE modem/router (OpenWRT); designed CI/CD for rapid embedded dev; developed AAA for network access integrated with Linux networking.</li>
-              </ul>
+              <ul><li>Embedded Linux for LTE modem/router (OpenWRT); CI/CD; AAA integrated with Linux networking.</li></ul>
             </li>
             <li><strong>Site Reliability Engineer — CPOL</strong> (03/2016–03/2017, Isfahan)
-              <ul>
-                <li>Built a Raspberry Pi–based distributed computing lab product; implemented infra across Windows, Linux, Mikrotik/Cisco; helped create IPTV streaming appliance with open-source stack.</li>
-              </ul>
+              <ul><li>Raspberry Pi distributed computing lab; infra across Windows/Linux/Mikrotik/Cisco; IPTV appliance.</li></ul>
             </li>
           </ul>
         </div>
@@ -359,7 +319,7 @@ a:hover { text-decoration: underline; }
         <div class="group">
           <h3>Skills</h3>
           <p><strong>Platforms/Cloud:</strong> Linux, Windows Server, AWS</p>
-          <p><strong>Networking:</strong> Cisco R&S, Linux advanced routing and traffic control</p>
+          <p><strong>Networking:</strong> Cisco R&S</p>
           <p><strong>Data/Streaming:</strong> Elastic Stack, Redis, MariaDB, PostgreSQL, ClickHouse, Apache Kafka, Apache Flink</p>
           <p><strong>DevOps:</strong> Kubernetes, CI/CD, Helm, Terraform, ArgoCD, Vault, SaltStack, Automation, Security, Incident Response</p>
           <p><strong>Programming:</strong> Python, Lua, SQL</p>
@@ -369,7 +329,7 @@ a:hover { text-decoration: underline; }
         <div class="group">
           <h3>Achievements</h3>
           <ul>
-            <li>WorldSkills Iran (Networks & Systems Administration) — 1st place (2016)</li>
+            <li>WorldSkills Iran — 1st (2016)</li>
             <li>Khwarizmi International Awards — Bronze (2016)</li>
             <li>IUT APA CTF — 1st (2018)</li>
             <li>APA CyberSecurity Startup Contest — 1st (2018)</li>
@@ -380,9 +340,9 @@ a:hover { text-decoration: underline; }
         <div class="group">
           <h3>Projects</h3>
           <ul>
-            <li>MinTweet / Pantheon / … (2023–Present): experiments with LLM capabilities in discussion/social media contexts.</li>
-            <li>Intelligent Distributed Computing (2015–2016): runtime patching & method offloading to distribute computation; Khwarizmi award.</li>
-            <li>rayanfam.com Blog (2017–2021): deep-dive systems/engineering posts and how-tos.</li>
+            <li>MinTweet / Pantheon (2023–Present): LLM experiments in social contexts.</li>
+            <li>Intelligent Distributed Computing (2015–2016): runtime patching & offloading; Khwarizmi award.</li>
+            <li>rayanfam.com Blog (2017–2021): systems deep-dives.</li>
           </ul>
         </div>
 
@@ -394,10 +354,10 @@ a:hover { text-decoration: underline; }
           </ul>
         </div>
       </div>
-      <div class="resize-grip" data-resize="window-resume"></div>
+      <div class="resize-grip" data-resize="window-resume" aria-hidden="true"></div>
     </section>
 
-    <!-- Window: Minesweeper (hidden by default) -->
+    <!-- Minesweeper (non-resizable) -->
     <section class="win95-window win95-frame" id="window-mines" style="top: 160px; left: 420px; width: 360px; height: 460px; display:none;">
       <header class="win95-titlebar" data-window="window-mines">
         <div class="win95-title">
@@ -417,9 +377,9 @@ a:hover { text-decoration: underline; }
           <div style="margin-left:auto;">Mines: <span id="mines-left">0</span></div>
         </div>
         <div id="mines-board" class="win95-frame" style="padding:4px; background:#9e9e9e; display:grid; grid-template-columns: repeat(9, 1fr); gap:2px;"></div>
-        <small style="margin-top:6px;">Left click: reveal — Right click: flag</small>
+        <small style="margin-top:6px;">Tap: reveal — Long-press: flag</small>
       </div>
-      <div class="resize-grip" data-resize="window-mines"></div>
+      <!-- no resize grip on purpose -->
     </section>
   </div>
 
@@ -445,7 +405,14 @@ a:hover { text-decoration: underline; }
   </div>
 
 <script>
-// ----- Window manager: drag, focus, minimize/maximize/close, taskbar, start menu, resize -----
+// Set --vh for iOS dynamic bars
+(function setVH(){
+  function update(){
+    document.documentElement.style.setProperty('--vh', (window.innerHeight * 0.01) + 'px');
+  }
+  update(); window.addEventListener('resize', update);
+})();
+
 (function(){
   const z = { next: 5 };
   const taskbarHeight = 32;
@@ -460,39 +427,51 @@ a:hover { text-decoration: underline; }
     const titlebar = win.querySelector('.win95-titlebar');
     let isDown = false, offset = {x:0, y:0};
 
-    titlebar.addEventListener('mousedown', (e) => {
-      if (e.target.closest('.win95-controls')) return;
+    function startDrag(clientX, clientY){
       isDown = true;
       bringToFront(win);
       const rect = win.getBoundingClientRect();
-      offset.x = e.clientX - rect.left;
-      offset.y = e.clientY - rect.top;
+      offset.x = clientX - rect.left;
+      offset.y = clientY - rect.top;
       document.body.style.userSelect = 'none';
-    });
-
-    document.addEventListener('mousemove', (e) => {
+    }
+    function moveDrag(clientX, clientY){
       if(!isDown) return;
       const rect = win.getBoundingClientRect();
       const w = rect.width; const h = rect.height;
-      const x = Math.max(0, Math.min(window.innerWidth - w, e.clientX - offset.x));
-      const y = Math.max(0, Math.min(window.innerHeight - taskbarHeight - h, e.clientY - offset.y));
+      const x = Math.max(0, Math.min(window.innerWidth - w, clientX - offset.x));
+      const y = Math.max(0, Math.min(window.innerHeight - taskbarHeight - h, clientY - offset.y));
       win.style.left = x + 'px';
       win.style.top = y + 'px';
-    });
-
-    document.addEventListener('mouseup', () => {
+    }
+    function endDrag(){
       isDown = false;
       document.body.style.userSelect = '';
+    }
+
+    // mouse
+    titlebar.addEventListener('mousedown', (e) => {
+      if (e.target.closest('.win95-controls')) return;
+      startDrag(e.clientX, e.clientY);
     });
+    document.addEventListener('mousemove', (e) => moveDrag(e.clientX, e.clientY));
+    document.addEventListener('mouseup', endDrag);
+
+    // touch
+    titlebar.addEventListener('touchstart', (e) => {
+      if (e.target.closest('.win95-controls')) return;
+      const t = e.touches[0]; startDrag(t.clientX, t.clientY);
+    }, {passive:true});
+    document.addEventListener('touchmove', (e) => {
+      const t = e.touches[0]; if (t) moveDrag(t.clientX, t.clientY);
+    }, {passive:true});
+    document.addEventListener('touchend', endDrag);
 
     win.addEventListener('mousedown', () => bringToFront(win));
+    win.addEventListener('touchstart', () => bringToFront(win), {passive:true});
   }
 
-  function minimize(win) {
-    win.dataset.prevDisplay = win.style.display || '';
-    win.style.display = 'none';
-  }
-
+  function minimize(win) { win.style.display = 'none'; }
   function maximize(win) {
     if (win.dataset.maximized === 'true') {
       win.style.left = win.dataset.prevLeft;
@@ -514,10 +493,7 @@ a:hover { text-decoration: underline; }
       bringToFront(win);
     }
   }
-
-  function closeWindow(win) {
-    win.style.display = 'none';
-  }
+  function closeWindow(win) { win.style.display = 'none'; }
 
   function bindControls(win) {
     win.querySelectorAll('.win95-btn').forEach(btn => {
@@ -542,12 +518,12 @@ a:hover { text-decoration: underline; }
     });
   }
 
-  // Start menu toggle
+  // Start menu
   const startBtn = document.getElementById('startBtn');
   const startMenu = document.getElementById('startMenu');
   startBtn.addEventListener('click', (e) => {
     e.stopPropagation();
-    startMenu.style.display = startMenu.style.display === 'none' || startMenu.style.display === '' ? 'block' : 'none';
+    startMenu.style.display = (startMenu.style.display === 'block') ? 'none' : 'block';
   });
   document.addEventListener('click', () => startMenu.style.display = 'none');
   startMenu.addEventListener('click', (e) => {
@@ -559,7 +535,7 @@ a:hover { text-decoration: underline; }
     }
   });
 
-  // Desktop icons open windows
+  // Desktop icons
   document.querySelectorAll('.icon').forEach(ic => {
     ic.addEventListener('dblclick', () => {
       const id = ic.dataset.open;
@@ -567,26 +543,40 @@ a:hover { text-decoration: underline; }
       win.style.display = '';
       bringToFront(win);
     });
+    ic.addEventListener('touchend', () => { // single-tap on mobile
+      const id = ic.dataset.open;
+      const win = document.getElementById(id);
+      win.style.display = '';
+      bringToFront(win);
+    });
   });
 
-  // Resize
+  // Resize (skip minesweeper)
   function makeResizable(win){
+    if (win.id === 'window-mines') return; // non-resizable
     const grip = win.querySelector('.resize-grip');
     if (!grip) return;
     let resizing = false, start = {x:0,y:0}, startRect=null;
-    grip.addEventListener('mousedown', (e)=>{
-      resizing = true; start.x = e.clientX; start.y = e.clientY;
+    function startR(clientX, clientY){
+      resizing = true; start.x = clientX; start.y = clientY;
       startRect = win.getBoundingClientRect();
-      e.preventDefault(); e.stopPropagation();
-    });
-    document.addEventListener('mousemove', (e)=>{
+    }
+    function moveR(clientX, clientY){
       if(!resizing) return;
-      const dx = e.clientX - start.x;
-      const dy = e.clientY - start.y;
+      const dx = clientX - start.x;
+      const dy = clientY - start.y;
       win.style.width = Math.max(320, startRect.width + dx) + 'px';
       win.style.height = Math.max(200, startRect.height + dy) + 'px';
-    });
-    document.addEventListener('mouseup', ()=> resizing=false);
+    }
+    function endR(){ resizing = false; }
+
+    grip.addEventListener('mousedown', (e)=>{ e.preventDefault(); e.stopPropagation(); startR(e.clientX, e.clientY); });
+    document.addEventListener('mousemove', (e)=> moveR(e.clientX, e.clientY));
+    document.addEventListener('mouseup', endR);
+
+    grip.addEventListener('touchstart', (e)=>{ const t=e.touches[0]; startR(t.clientX, t.clientY); }, {passive:true});
+    document.addEventListener('touchmove', (e)=>{ const t=e.touches[0]; if (t) moveR(t.clientX, t.clientY); }, {passive:true});
+    document.addEventListener('touchend', endR);
   }
 
   // Clock (AM/PM)
@@ -599,19 +589,18 @@ a:hover { text-decoration: underline; }
     h = h % 12; if (h === 0) h = 12;
     el.textContent = h + ":" + m + " " + ampm;
   }
-  setInterval(updateClock, 1000);
-  updateClock();
+  setInterval(updateClock, 1000); updateClock();
 
-  // Init windows
+  // Init
   document.querySelectorAll('.win95-window').forEach(win => {
     makeDraggable(win);
-    makeResizable(win);
     bindControls(win);
+    makeResizable(win);
   });
   bindTaskbar();
 })();
 
-// ----- Minesweeper (simple implementation) -----
+// ---- Minesweeper: add long-press flagging for mobile ----
 (function(){
   const boardEl = document.getElementById('mines-board');
   const timeEl = document.getElementById('mines-time');
@@ -663,6 +652,14 @@ a:hover { text-decoration: underline; }
         cell.className = "win95-frame";
         cell.style.background = "#C0C0C0";
         cell.oncontextmenu = (e)=>{ e.preventDefault(); flag(x,y,cell); };
+        // long press flag
+        let pressTimer=null;
+        cell.addEventListener('touchstart', ()=>{
+          pressTimer = setTimeout(()=> flag(x,y,cell), 500);
+        }, {passive:true});
+        cell.addEventListener('touchend', ()=>{
+          if (pressTimer){ clearTimeout(pressTimer); pressTimer=null; }
+        });
         cell.addEventListener('click', ()=> reveal(x,y));
         boardEl.appendChild(cell);
       }
@@ -700,7 +697,6 @@ a:hover { text-decoration: underline; }
     if (val > 0) {
       cell.textContent = String(val);
     } else {
-      // flood fill
       for (let dy=-1; dy<=1; dy++)
         for (let dx=-1; dx<=1; dx++){
           if (dx===0 && dy===0) continue;
@@ -712,10 +708,11 @@ a:hover { text-decoration: underline; }
   }
 
   function checkWin(){
-    let safe=0;
-    for (let y=0;y<H;y++) for (let x=0;x<W;x++) if (board[y][x]!==-1) safe++;
-    let shown=0;
-    for (let y=0;y<H;y++) for (let x=0;x<W;x++) if (revealed[y][x]) shown++;
+    let safe=0, shown=0;
+    for (let y=0;y<H;y++) for (let x=0;x<W;x++){
+      if (board[y][x]!==-1) safe++;
+      if (revealed[y][x]) shown++;
+    }
     if (shown===safe){ alive=false; setTimeout(()=>alert("You win!"),50); }
   }
 
@@ -726,9 +723,7 @@ a:hover { text-decoration: underline; }
     }
   }
 
-  function getCell(x,y){
-    return boardEl.querySelector(`div[data-x="${x}"][data-y="${y}"]`);
-  }
+  function getCell(x,y){ return boardEl.querySelector(`div[data-x="${x}"][data-y="${y}"]`); }
 
   resetBtn.addEventListener('click', init);
   init();
